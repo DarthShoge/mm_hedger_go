@@ -1,4 +1,4 @@
-.PHONY: run test lint tidy
+.PHONY: run test lint tidy cover
 
 run:          ## go run the service
 	go run ./cmd/server
@@ -11,3 +11,7 @@ lint:         ## static analysis
 
 tidy:         ## clean up go.mod/go.sum
 	go mod tidy
+
+cover:        ## generate coverage report
+	go test -coverprofile=coverage.out ./...
+	go tool cover -func=coverage.out
