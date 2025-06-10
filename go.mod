@@ -1,3 +1,3 @@
-module github.com/yourorg/marketmaker
+module github.com/darthshoge/mm_hedger_go
 
 go 1.22.2
