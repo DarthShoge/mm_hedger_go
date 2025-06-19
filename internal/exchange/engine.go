@@ -21,9 +21,9 @@ type Engine struct {
 // NewEngine creates a new Engine.
 func NewEngine() *Engine {
 	return &Engine{
-		bids:   make([]*types.Order, 0),
-		asks:   make([]*types.Order, 0),
-		orders: make(map[string]*types.Order),
+		bids:   []*types.Order{},
+		asks:   []*types.Order{},
+		orders: map[string]*types.Order{},
 	}
 }
 

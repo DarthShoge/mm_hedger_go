@@ -51,3 +51,19 @@ func TestEngineMarketOrder(t *testing.T) {
 		t.Fatalf("orderbook should be empty")
 	}
 }
+
+func TestEngineOrderWithNoMatch(t *testing.T) {
+	e := NewEngine()
+	sell := &types.Order{Side: types.SideSell, Type: types.OrderTypeLimit, Price: 100, Quantity: 1}
+	if trades, _ := e.Submit(sell); len(trades) != 0 {
+		t.Fatalf("expected no trades on first submit")
+	}
+
+	buy := &types.Order{Side: types.SideBuy, Type: types.OrderTypeLimit, Price: 99, Quantity: 1}
+	if trades, _ := e.Submit(buy); len(trades) != 0 {
+		t.Fatalf("expected no trades for unmatched order")
+	}
+	if len(e.bids) != 1 || len(e.asks) != 1 {
+		t.Fatalf("orderbook should contain one bid and one ask")
+	}
+}

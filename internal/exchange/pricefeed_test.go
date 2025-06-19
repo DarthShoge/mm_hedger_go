@@ -16,6 +16,18 @@ func TestRandomWalkFeedStep(t *testing.T) {
 	}
 }
 
+func TestQuoteMidPrice(t *testing.T) {
+	pf := NewRandomWalkFeed(100, 1, 0)
+	q := pf.Step()
+	mid := q.MidPrice()
+	if mid != 100+1 {
+		t.Fatalf("unexpected mid price: got %f, want %f", mid, float64(100+1))
+	}
+	if q.Bid == 0 || q.Ask == 0 {
+		t.Fatalf("bid or ask should not be zero")
+	}
+}
+
 func TestStaticPriceFeed(t *testing.T) {
 	pf := NewStaticPriceFeed(50)
 	q1 := pf.Step()
